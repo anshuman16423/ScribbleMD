@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        a:link, a:visited {
+      background-color: #f44336;
+      color: white;
+      padding: 14px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    a:hover, a:active {
+      background-color: red;
+    }
+    </style>
+</head>
+<body>
+    <ui><h2>registered username's</h2>
+    {%  for user in all_user %}
+        <li>{{ user.username }}</li>
+    {% endfor %}
+    <h2>not a user?? register here</h2>
+    <h3> {{ str }}</h3>
+    <form method=POST action='signup'>
+        {%  csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+
+    </ui>
+</body>
+</html>

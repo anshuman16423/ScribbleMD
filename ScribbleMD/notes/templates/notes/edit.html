@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>write your MD here</title>
+</head>
+<body>
+    <h1> write your MD</h1>
+    <form enctype="multipart/form-data" method="post",>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="b1" value="preview">
+        <input type="submit" name="b2" value="save" >
+    </form>
+</body>
+</html>

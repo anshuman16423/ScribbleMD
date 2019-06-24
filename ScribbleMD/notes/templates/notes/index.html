@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your MD scribes</title>
+</head>
+<body>
+    <h1>welcome {{ username }}</h1>
+    <a href = './logout'>logout</a>
+    {% for i in data %}
+        <h1>{{i.head}}</h1><a href = "/view/{{ i.id }}">view</a><a href = "/edit/{{ i.id }}">edit</a><a href = "/delete/{{ i.id }}">delete</a>
+    {% endfor %}
+
+</body>
+</html>
