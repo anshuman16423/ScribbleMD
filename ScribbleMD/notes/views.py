@@ -35,10 +35,12 @@ def new_note(request):
         if form.is_valid():
             con=Markdown()
             request.session['temp'] = con.convert(form.cleaned_data['content'])
+
             return HttpResponseRedirect('preview')
 
     context = dict()
     context['form'] = NewNote()
+    context['username'] = request.session['username']
     temp = loader.get_template('notes/newnote.html')
     return HttpResponse(temp.render(context, request))
 
@@ -46,7 +48,7 @@ def new_note(request):
 def preview(request):
     context=dict()
     context['note'] = request.session['temp']
-    request.session['temp'] = ''
+    #request.session['temp'] = ''
     temp = loader.get_template('notes/preview.html')
     return HttpResponse(temp.render(context, request))
 
@@ -61,12 +63,13 @@ def view(request, note_id):
     context = dict()
     context['head'] = note.head
     context['body'] = note.md
+    context['username'] = request.session['username']
     temp = loader.get_template('notes/view.html')
     return HttpResponse(temp.render(context,request))
 
 
 def edit(request, note_id):
-    if request.method == 'POST':
+    if request.method == 'POST' and 'b2' in request.POST:
         try:
 
             note = Note.objects.filter(id=note_id)[0]
@@ -83,6 +86,13 @@ def edit(request, note_id):
             con = Markdown()
             note.md = con.convert(note.content)
             note.save()
+            return HttpResponseRedirect("/")
+    if request.method == 'POST' and 'b1' in request.POST :
+        form = NewNote(request.POST)
+        if form.is_valid():
+            con=Markdown()
+            request.session['temp'] = con.convert(form.cleaned_data['content'])
+            return HttpResponseRedirect('preview')
 
     try:
 
@@ -99,6 +109,7 @@ def edit(request, note_id):
     form = NewNote(data)
     context = dict()
     context['form'] = form
+    context['username'] = request.session['username']
     temp = loader.get_template('notes/edit.html')
     return HttpResponse(temp.render(context, request))
 
@@ -113,6 +124,7 @@ def delete(request, note_id):
     if note.owner!=request.session['username']:
         return HttpResponse('Unauthorized', status=401)
     Note.objects.filter(id=note_id).delete()
+    return HttpResponseRedirect('./')
 
 
 def logout(request):
