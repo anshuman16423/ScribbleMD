@@ -37,8 +37,10 @@ def new_note(request):
             request.session['temp'] = con.convert(form.cleaned_data['content'])
 
             return HttpResponseRedirect('preview')
+    data = [i for i in Note.objects.all() if i.owner == request.session['username']]
 
     context = dict()
+    context['data'] = data
     context['form'] = NewNote()
     context['username'] = request.session['username']
     temp = loader.get_template('notes/newnote.html')
@@ -63,6 +65,7 @@ def view(request, note_id):
     context = dict()
     context['head'] = note.head
     context['body'] = note.md
+    context['note_id'] = note_id
     context['username'] = request.session['username']
     temp = loader.get_template('notes/view.html')
     return HttpResponse(temp.render(context,request))

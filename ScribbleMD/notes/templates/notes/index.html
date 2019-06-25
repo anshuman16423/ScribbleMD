@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your MD scribes</title>
+    <title>ScribbleMD</title>
     <style>
 * {box-sizing: border-box;}
 
@@ -58,6 +58,57 @@ body {
     float: none;
   }
 }
+        .btn-group a {
+  background-color: #4CAF50; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group a:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group a:hover {
+  background-color: #3e8e41;
+}
+        .vertical-menu {
+            display: inline-block;
+  width: 500px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+        .content
+        {
+            display: inline-block;
+            margin-left: 30%;
+        }
+
 </style>
 </head>
 <body>
@@ -69,9 +120,14 @@ body {
         <a href="/logout">Logout</a>
       </div>
     </div>
+    <div class="vertical-menu">
+        <a class="active">Your Scribes</a>
     {% for i in data %}
-        <h1>{{i.head}}</h1><a href = "/view/{{ i.id }}">view</a><a href = "/edit/{{ i.id }}">edit</a><a href = "/delete/{{ i.id }}">delete</a>
+
+            <a href = "/view/{{ i.id }}">{{ i.head }}</a>
+
     {% endfor %}
 
+    </div>
 </body>
 </html>
