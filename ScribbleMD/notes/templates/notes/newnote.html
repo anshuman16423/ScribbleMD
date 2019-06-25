@@ -3,14 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>write your MD here</title>
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    background-image: url("https://cdn4.iconfinder.com/data/icons/office-55/256/4-512.png");
+    background-position: 10px 10px;
+    background-size: 28px 28px;
+    background-repeat: no-repeat;
+    background-color: #3CBC8D;
+
+  color: white;
+  width: 100%;
+  padding: 12px;
+    padding-left: 40px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+    text-decoration: chocolate;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border-radius:8px;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+        .scribble
+        {
+            text-decoration: none;
+        }
+
+</style>
 </head>
 <body>
-    <h1> write your MD</h1>
+<h1> <a class="scribble" href="./">ScribbleMD</a></h1>
     <form action="newnote" enctype="multipart/form-data" method="post",>
         {% csrf_token %}
         {{ form }}
+        <center>
         <input type="submit" name="b1" value="preview">
         <input type="submit" name="b2" value="save" >
+            </center>
     </form>
 </body>
 </html>

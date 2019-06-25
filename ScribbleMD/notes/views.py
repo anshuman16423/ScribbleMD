@@ -29,6 +29,7 @@ def new_note(request):
             con = Markdown()
             new.md = con.convert(new.content)
             new.save()
+            return HttpResponseRedirect("./")
     if request.method == 'POST' and 'b1' in request.POST :
         form = NewNote(request.POST)
         if form.is_valid():
