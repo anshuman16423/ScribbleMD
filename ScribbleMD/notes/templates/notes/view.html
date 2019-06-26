@@ -63,10 +63,11 @@ body {
 <body>
     <div class="header">
       <a href="/" class="logo">ScribbleMD</a>
-                  <a class="active" href="/edit/{{ note_id }}">Edit</a>
-          <a class="active" href="/delete/{{ note_id }}">Delete</a>
+                  <a href="/edit/{{ note_id }}">Edit</a>
+          <a href="/delete/{{ note_id }}">Delete</a>
+        <a href="/download/{{ note_id }}">Download as PDF</a>
       <div class="header-right">
-
+1
         <a class="active" href="/newnote">New Note</a>
         <a>{{ username }}</a>
         <a href="/logout">Logout</a>

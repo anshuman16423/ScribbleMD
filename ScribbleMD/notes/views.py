@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from markdown2 import Markdown
 from models import Note
 from forms import NewNote
-
+from xhtml2pdf import pisa
+from cStringIO import StringIO
 
 def index(request):
     if 'username' not in request.session:
@@ -129,6 +130,22 @@ def delete(request, note_id):
     Note.objects.filter(id=note_id).delete()
     return HttpResponseRedirect('./')
 
+
+def download(request, note_id):
+    try:
+        note = Note.objects.filter(id=note_id)[0]
+    except:
+        return HttpResponse('404 Thats an Error!!<br><hr>', status=404)
+    if note.owner != request.session['username']:
+        return HttpResponse('Unauthorized', status=401)
+    pdf = StringIO()
+    pisa.CreatePDF(StringIO((note.md).encode('utf-8')), pdf)
+    resp = pdf.getvalue()
+    pdf.close()
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="ScribbleMD.pdf"'
+    response.write(resp)
+    return response
 
 def logout(request):
     request.session.pop('username')
